@@ -1,0 +1,39 @@
+[package]
+name = "apex-crypto"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+description = "Post-quantum cryptographic primitives for the APEX protocol"
+license = "Apache-2.0"
+repository = "https://github.com/apex-protocol/apex-crypto"
+keywords = ["post-quantum", "dilithium", "kyber", "pqc", "cryptography"]
+categories = ["cryptography"]
+
+[lib]
+name = "apex_crypto"
+path = "src/lib.rs"
+
+[dependencies]
+# NIST PQC standards — FIPS 203, 204, 205
+pqcrypto-dilithium   = "0.5"
+pqcrypto-kyber       = "0.8"
+pqcrypto-sphincsplus = "0.7"
+pqcrypto-traits      = "0.3"
+
+# Classical scheme — hybrid transition mode only
+ed25519-dalek = { version = "2.1", features = ["rand_core"] }
+
+sha3      = "0.10"
+blake3    = "1.5"
+rand      = "0.8"
+zeroize   = { version = "1.7", features = ["derive"] }
+serde     = { version = "1.0", features = ["derive"] }
+hex       = "0.4"
+thiserror = "1.0"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "signature_bench"
+harness = false
